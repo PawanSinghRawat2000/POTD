@@ -1,0 +1,32 @@
+//Given an array of strings arr[]. You have to find the longest string which is lexicographically 
+//smallest and also all of its prefix strings are already present in the array.
+
+class Solution
+{
+public:
+    string longestString(vector<string> &words)
+    {
+        // code here
+        sort(words.begin(),words.end());
+        unordered_map <string,int> mp;
+        for(auto &it: words)mp[it]++;
+        int longest=0;
+        string ans;
+        for(int i=0;i<words.size();i++){
+            string s="";
+            int n=words[i].size();
+            for(int j=0;j<n;j++){
+                s+=words[i][j];
+                if(!mp[s]){
+                    n=0;
+                    break;
+                }
+            }
+            if(n>longest){
+                longest=n;
+                ans=words[i];
+            }
+        }
+        return ans;
+    }
+};
