@@ -1,0 +1,41 @@
+You are given two four digit prime numbers Num1 and Num2. 
+Find the distance of the shortest path from Num1 to Num2 that can be attained by altering only one single digit at a time. 
+Every number obtained after changing a digit should be a four digit prime number with no leading zeros.
+
+class Solution{   
+  public:
+    int shortestPath(int Num1,int Num2)
+    {   
+        // Complete this function using prime vector
+        bool prime[10000]={0};
+        for(int i=2;i<=9999;i++){
+            if(prime[i]==0){
+                for(int j=i+i;j<=9999;j+=i)prime[j]=1;
+            }
+        }
+        
+        queue<int> q;
+        if(Num1>Num2)swap(Num1,Num2);
+        q.push(Num1);
+        int lvl=0;
+        while(!q.empty()){
+            int n=q.size();
+            for(int i=0;i<n;i++){
+                auto top=q.front();q.pop();
+                if(top==Num2)return lvl;
+                for(int i=1;i<=1000;i*=10){
+                    int dig=(top/i)%10;
+                    for(int k=i!=1000?0:1;k<10;k++){
+                        int neww=top+(k-dig)*i;
+                        if(prime[neww]==0){
+                            q.push(neww);
+                            prime[neww]=1;
+                        }
+                    }
+                }
+            }
+            lvl++;
+        }
+        return -1;
+    }
+};
