@@ -1,0 +1,34 @@
+class Solution {
+public:
+
+    Node* merge(Node* a,Node* b){
+        if(a==NULL)return b;
+        if(b==NULL)return a;
+        
+        Node* temp=new Node(-1);
+        Node* ans=temp;
+        while(a && b){
+            if(a->data<=b->data){
+                temp->bottom=a;
+                temp=temp->bottom;
+                a=a->bottom;
+            }else{
+                temp->bottom=b;
+                b=b->bottom;
+                temp=temp->bottom;
+            }
+        }
+        if(a!=NULL)temp->bottom=a;
+        else temp->bottom=b;
+        return ans->bottom;
+    }
+
+    Node *flatten(Node *root)
+    {
+        // Your code here
+        if(root==NULL || root->next==NULL)return root;
+        root->next=flatten(root->next);
+        root=merge(root,root->next);
+        return root;
+    }
+};
