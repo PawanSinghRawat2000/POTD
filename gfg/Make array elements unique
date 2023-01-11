@@ -1,0 +1,17 @@
+class Solution {
+  public:
+    long long int minIncrements(vector<int> arr, int N) {
+        // Code here
+        sort(arr.begin(), arr.end());
+        long long cnt = 0;  int prev = 0;
+        for(auto &i : arr){
+            if(i <= prev){
+                int diff = prev-i+1;
+                cnt += diff;
+                prev = i + diff;
+            }
+            else    prev = i;
+        }
+        return cnt;
+    }
+};
