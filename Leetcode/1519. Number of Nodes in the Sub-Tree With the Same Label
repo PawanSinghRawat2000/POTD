@@ -1,0 +1,35 @@
+class Solution {
+public:
+    vector<int> countSubTrees(int n, vector<vector<int>>& edges, string labels) {
+         vector<vector<int>>adj(n);
+         vector<int>ans(n);
+        
+		//Creating the adjacency list for the graph
+        for(auto it:edges) {
+            adj[it[0]].push_back(it[1]);
+            adj[it[1]].push_back(it[0]);
+        }
+        
+		//starting traversal of graph from the 0 node and parent as -1
+        dfs(0, -1, labels,adj,ans); 
+        return ans;
+    }
+    
+    vector<int> dfs(int i, int par, string &labels,vector<vector<int>>&adj,vector<int>&ans) {
+		//maintaining the frequency count of the subtree with **s** as the node
+        vector<int>res(26,0);
+        res[labels[i]-'a']++; //adding the value of current node
+        
+        for(int it:adj[i]) {
+            if(it == par)continue;
+            vector<int>f = dfs(it, i, labels,adj,ans); //frequency count of subtree with it(child) as root
+            for(int i=0; i<26; ++i) {
+                res[i]+=f[i];
+            }
+        }
+        
+        ans[i] = res[labels[i]-'a']; //since we want the number of occurences of the char in current node
+        
+        return res;
+    }
+};
