@@ -1,0 +1,19 @@
+class Solution{
+    public:
+    int carpetBox(int A, int B, int C, int D){
+        //code here
+        int moves=0;
+        while(max(C,D)<max(A,B)){
+            if(A>=B)A/=2;
+            else B/=2;
+            moves++;
+        }
+        while(min(C,D)<min(A,B)){
+            if(A<=B)A/=2;
+            else B/=2;
+            moves++;
+        }
+        
+        return moves;
+    }
+};
