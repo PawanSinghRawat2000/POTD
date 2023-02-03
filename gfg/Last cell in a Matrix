@@ -1,0 +1,37 @@
+class Solution{
+    public:
+    pair<int,int> endPoints(vector<vector<int>> matrix, int R, int C){
+        //code here
+        int i=0,j=0;
+        bool move_right=true,move_left=false,move_up=false,move_down=false;
+        while(i>=0 && i<R && j>=0 && j<C){
+            if(matrix[i][j]==0){
+                if(move_right)j++;
+                else if(move_left)j--;
+                else if(move_up)i--;
+                else if(move_down)i++;
+            }else{
+                matrix[i][j]=0;
+                if(move_right){
+                    move_right=false;
+                    move_down=true;
+                }else if(move_down){
+                    move_down=false;
+                    move_left=true;
+                }else if(move_left){
+                    move_left=false;
+                    move_up=true;
+                }else{
+                    move_up=false;
+                    move_right=true;
+                }
+            }
+        }
+        if(move_up)return {i+1,j};
+        if(move_down)return {i-1,j};
+        if(move_right)return {i,j-1};
+        return {i,j+1};
+        
+        
+    }
+};
