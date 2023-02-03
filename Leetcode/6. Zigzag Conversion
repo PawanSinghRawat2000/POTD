@@ -1,0 +1,23 @@
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if(numRows==1)return s;
+        int i=0;
+        vector<string> temp(numRows,"");
+        bool flag;
+        for(int j=0;j<s.length();j++){
+            temp[i]+=s[j];
+            if(i==0)flag=true;
+            if(i==numRows-1)flag=false;
+            if(flag==true)i++;
+            else i--;
+            
+        }
+        string ans="";
+        for(auto it:temp){
+            ans+=it;
+        }
+        return ans;
+
+    }
+};
