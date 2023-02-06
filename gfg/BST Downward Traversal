@@ -1,0 +1,35 @@
+class Solution{
+public:
+    
+    bool search(Node* root,int target,Node* &targetNode){
+        
+        while(root!=NULL){
+            if(root->data==target){
+                targetNode=root;
+                return true;
+                
+            }
+            else if(root->data<target)root=root->right;
+            else root=root->left;
+        }
+        return false;
+    }
+    
+    void solve(Node* root,int hdis ,int comp,long long &ans){
+        if(root==NULL)return;
+        if(hdis==comp)ans+=root->data;
+        solve(root->left,hdis-1,comp,ans);
+        solve(root->right,hdis+1,comp,ans);
+    }
+    
+    long long int verticallyDownBST(Node *root,int target){
+        // Code here
+        Node* targetNode=NULL;
+        bool flag=search(root,target,targetNode);
+        if(flag==false)return -1;
+        long long ans=0;
+        solve(targetNode,0,0,ans);
+        return ans - targetNode->data;
+        
+    }
+};
