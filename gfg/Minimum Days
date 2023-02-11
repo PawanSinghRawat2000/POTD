@@ -1,0 +1,29 @@
+int getMinimumDays(int N,string S, vector<int> &P) {
+
+        int i=0,j=1,k=0;
+
+        int count=0;
+
+        while(i<N && j<N && k< P.size()){
+
+            if(S[i]==S[j] && (S[i]!='?'|| S[j]!='?')){
+
+                S[P[k++]] = '?';
+
+                count++;
+
+            }
+
+            else{
+
+            i++;
+
+            j++;  
+
+            }
+
+        }
+
+        return count;
+
+    }
