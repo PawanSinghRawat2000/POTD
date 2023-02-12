@@ -1,0 +1,50 @@
+class Solution{
+public:
+
+    bool isPrime(int n){
+        if(n <= 1)
+        return false;
+        for(int i=2;i*i<=n;i++){
+            if(n%i == 0)return false;
+        }
+        return true;
+    }
+
+    int solve(int n){
+        int prime1,prime2;
+        for(int i=n;i>=2;i--){
+            if(isPrime(i)){
+                prime1=i;
+                break;
+            }
+        }
+        for(int i=n;i<n*n;i++){
+            if(isPrime(i)){
+                prime2=i;
+                break;
+            }
+        }
+        if(abs(n-prime1)>abs(n-prime2))return prime2;
+        else if(abs(n-prime1)<abs(n-prime2))return prime1;
+        else{
+            if(prime1>prime2)return prime2;
+            return prime1;
+        }
+    }
+
+    Node *primeList(Node *head){
+        Node* temp=head;
+        while(temp){
+            if(temp->val==1){
+                temp->val=2;
+                temp=temp->next;
+            }
+            else if(isPrime(temp->val))temp=temp->next;
+            else{
+                temp->val=solve(temp->val);
+                temp=temp->next;
+            }
+        }
+        return head;
+    }
+};
