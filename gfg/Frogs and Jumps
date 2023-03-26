@@ -1,0 +1,24 @@
+class Solution {
+  public:
+    int unvisitedLeaves(int N, int leaves, int frogs[]) {
+        // Code here
+        vector<int> sieve(leaves+1,0);
+        
+        
+        for(int i=0;i<N;i++){
+            int num=frogs[i];
+            if(num<=leaves && sieve[num]==0){
+                for(int j=num;j<=leaves;j+=num){
+                sieve[j]=1;
+                }
+            }
+            
+        }
+        int ans=0;
+        for(int i=1;i<=leaves;i++){
+            if(sieve[i]==0)ans++;
+        }
+        return ans;
+        
+    }
+};
