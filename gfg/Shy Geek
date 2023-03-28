@@ -1,0 +1,38 @@
+class Solution{
+    public:
+    
+    Shop shop;
+    Solution(Shop s)
+    {
+        this->shop = s;
+    }
+    long long find(int n, long k){
+        // Return the number of chocolates Geek had
+        // enjoyed out of 'n' chocolates availabe in the
+        // 'shop'.
+        int left=0,right=n-1;
+        long long ans=0;
+        while(k>0){
+            int maxPrice=0;
+            while(left<=right){
+                int mid=(left+right)/2;
+                int price=shop.get(mid);
+                
+                if(price>k){
+                    right=mid-1;
+                }else{
+                    maxPrice=price;
+                    left=mid+1;
+                }
+               
+            }
+             if(maxPrice==0)break;
+                
+            ans+=(int)(k/maxPrice);
+            k=(k%maxPrice);
+            left=0;
+        }
+        return ans;
+    }
+
+};
