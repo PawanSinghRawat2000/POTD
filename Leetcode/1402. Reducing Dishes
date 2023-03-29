@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int maxSatisfaction(vector<int>& satisfaction) {
+        sort(satisfaction.begin(),satisfaction.end());
+
+        int totalSatisfaction = 0; // Total satisfaction value of the dishes on the menu list
+        int maxTotalSatisfaction = 0; // Maximum total satisfaction value of the dishes cooked so far
+        int n = satisfaction.size(); // Number of dishes in the list
+
+        // Iterate over the sorted list of dishes in reverse order
+        for (int i = n - 1; i >= 0 && satisfaction[i] > -totalSatisfaction; --i) {
+            // Add the satisfaction value of the current dish to the total satisfaction 
+            //value of the dishes on the menu list
+            totalSatisfaction += satisfaction[i];
+
+            // Add the updated total satisfaction value of the dishes on the menu list 
+            //to the maximum total satisfaction value of the dishes cooked so far
+            maxTotalSatisfaction += totalSatisfaction;
+        }
+
+        // Return the maximum total satisfaction value of the dishes cooked so far
+        return maxTotalSatisfaction;
+    }
+};
