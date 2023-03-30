@@ -1,0 +1,7 @@
+ long int sum = 0;
+        for(int x : A) sum += x;
+        long int ans = INT_MAX;
+        for(long int x : A) {
+            if(x*N >= sum) ans = min(ans, x);
+        }
+        return ans;
