@@ -1,0 +1,16 @@
+int equalSum(int N, vector<int> &A) {
+        // code here
+        int sum = 0;
+		for(int i=0;i<N;++i) {
+		    sum += A[i];
+		}
+		int leftSum = 0;
+		for(int i=0;i<N;++i) {
+		    if(leftSum == sum - A[i]) {
+		        return (i + 1);
+		    }
+		    leftSum += A[i];
+		    sum -= A[i];
+		}
+		return -1;
+    }
