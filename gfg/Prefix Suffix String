@@ -1,0 +1,96 @@
+struct Node{
+    
+    Node* links[26];
+    bool flag= false;
+    
+    bool containKey(char ch){
+        return (links[ch-'a'] != NULL);
+    }
+    
+    void put(char ch, Node* root){
+        links[ch-'a']= root;
+    }
+    
+    Node* get(char ch){
+        return links[ch-'a'];
+    }
+    
+    void setEnd(){
+        flag= true;
+    }
+};
+class Trie {
+    private:
+        Node *root;
+    
+public:
+    Trie() {
+        root= new Node();
+    }
+    
+    void insert(string word) {
+        
+        Node* node= root;
+        
+        for(int i=0; i<word.length(); i++){
+            
+            char ch= word[i];
+            if(!node->containKey(ch)){
+                node->put(ch,new Node());
+            }
+            
+            node= node->get(ch);
+        }
+        
+        node->setEnd();
+    }
+    
+    bool startsWith(string prefix) {
+        
+        Node* node= root;
+       
+        for(int i=0; i<prefix.length(); i++){
+            
+            char ch= prefix[i];
+            if(!node->containKey(ch)){
+                return false;
+            }
+            
+            node= node->get(ch);
+        }
+        
+        return true;
+    }
+};
+
+
+class Solution{
+public:
+    int prefixSuffixString(vector<string> &s1,vector<string> s2){
+        // Code here
+          int ans= 0;
+        Trie t1;
+        Trie t2;
+        
+        for(int i=0; i<s1.size(); i++){
+            
+            string s= s1[i];
+            t1.insert(s1[i]);
+            reverse(s.begin(),s.end());
+            t2.insert(s);
+        }
+        
+        for(auto i:s2){
+            
+            string s= i;
+            string t= i;
+            reverse(s.begin(),s.end());
+            
+            if(t1.startsWith(t) || t2.startsWith(s)){
+                ans++;
+            }
+        }
+        
+        return ans;
+    }
+};
