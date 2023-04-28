@@ -1,0 +1,45 @@
+class Solution{
+public:
+    vector<vector<int>> chefAndWells(int n,int m,vector<vector<char>> &c){
+        // Code here
+        vector<vector<int>> ans(n,vector<int>(m,0));
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        int dx[4]={1,-1,0,0};
+        int dy[4]={0,0,-1,1};
+        queue<pair<int,int>> q;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(c[i][j]=='W'){
+                    ans[i][j]=0;
+                    vis[i][j]=1;
+                    q.push({i,j});
+                }
+            }
+        }
+        while(!q.empty()){
+            auto it=q.front();
+            q.pop();
+            int x=it.first;
+            int y=it.second;
+            for(int i=0;i<4;i++){
+                int newx=x+dx[i];
+                int newy=y+dy[i];
+                if(newx<n && newy<m && newx>=0 && newy>=0 && !vis[newx][newy] && c[newx][newy]!='N'){
+                    ans[newx][newy]=ans[x][y]+2;
+                    q.push({newx,newy});
+                    vis[newx][newy]=1;
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                if(c[i][j]=='N' || c[i][j]=='.')ans[i][j]=0;
+                else if(c[i][j]=='H'){
+                    if(ans[i][j]==0)ans[i][j]=-1;
+                }
+            }
+        }
+        return ans;
+        
+    }
+};
