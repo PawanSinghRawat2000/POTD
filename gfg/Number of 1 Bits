@@ -1,0 +1,24 @@
+class Solution { 
+  public:      
+  int ans=INT_MAX;     
+  void solve(int ind,vector<int>&nums,vector<int>&v,int k){
+    if(ind==nums.size()){
+    int maxm=INT_MIN;
+    for(int i=0;i<k;i++){ 
+      maxm=max(maxm,v[i]);
+    }       
+    ans=min(ans,maxm);    
+    return;        
+    }    
+    for(int i=0;i<k;i++){    
+      v[i]+=nums[ind];         
+      solve(ind+1,nums,v,k);   
+      v[i]-=nums[ind];        
+      } 
+  }  
+  int distributeCookies(vector<int>& cookies, int k) {   
+  vector<int> v(k);      
+  solve(0,cookies,v,k);  
+  return ans;   
+  } 
+};
