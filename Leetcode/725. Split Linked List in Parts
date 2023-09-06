@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+        //calculate total length of Linked List
+        int length=0;
+        ListNode* temp=head;
+        while(temp){
+            length++;
+            temp=temp->next;
+        }
+        vector<ListNode*> ans;
+        //Equal size->length/k           remainder-->length%k
+        int size=length/k;
+        int remainder=length%k;
+        temp=head;
+        
+        for(int i=0;i<k;i++){
+            int part_size=size+(remainder>0);     //size of part
+            ListNode* h=NULL,*t=NULL;
+            for(int j=0;j<part_size;j++){
+                if(!h)h=t=temp;
+                else{
+                    t->next=temp;
+                    t=t->next;
+                }
+                if(temp)temp=temp->next;
+            }
+            if(t){
+                t->next=NULL;
+            }
+            ans.push_back(h);
+            remainder=max(remainder-1,0);
+        }
+
+
+        return ans;
+    }
+};
